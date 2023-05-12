@@ -16,8 +16,8 @@ export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
   @Post()
-  signUp(@Body() body: CreateCatDto) {
-    return this.catsService.signUp(body);
+  async signUp(@Body() body: CreateCatDto) {
+    return await this.catsService.signUp(body);
   }
 
   // @Post()
