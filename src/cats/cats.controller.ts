@@ -16,9 +16,14 @@ export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
   @Post()
-  create(@Body() createCatDto: CreateCatDto) {
-    return this.catsService.create(createCatDto);
+  signUp(@Body() body: CreateCatDto) {
+    return this.catsService.signUp(body);
   }
+
+  // @Post()
+  // create(@Body() createCatDto: CreateCatDto) {
+  //   return this.catsService.create(createCatDto);
+  // }
 
   @Get()
   findAll() {
