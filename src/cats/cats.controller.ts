@@ -30,14 +30,19 @@ export class CatsController {
   }
 
   @Post('login')
-  async logIn(@Body() body: LoginRequestDto) {
-    return await this.AuthService.jwtLogin(body);
+  logIn(@Body() body: LoginRequestDto) {
+    return this.AuthService.jwtLogin(body);
   }
 
   @Get()
   @UseGuards(JwtAuthGuard)
   getCurrentCat(@CurrentUser() cat) {
     return cat.readOnlyData;
+  }
+
+  @Get('all')
+  getAllCat() {
+    return this.catsService.getAllCat();
   }
 
   @Get(':id')
