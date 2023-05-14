@@ -7,11 +7,15 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
+import { CurrentUser } from 'src/commons/decorators/user.decorator';
 
 @Controller('cats')
 export class CatsController {
@@ -31,8 +35,9 @@ export class CatsController {
   }
 
   @Get()
-  findAll() {
-    return this.catsService.findAll();
+  @UseGuards(JwtAuthGuard)
+  getCurrentCat(@CurrentUser() cat) {
+    return cat.readOnlyData;
   }
 
   @Get(':id')

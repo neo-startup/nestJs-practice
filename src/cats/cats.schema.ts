@@ -6,6 +6,8 @@ export type CatDocument = HydratedDocument<Cat>;
 
 @Schema()
 export class Cat {
+  id: string;
+
   @Prop({
     required: true,
     unique: true,
@@ -26,13 +28,14 @@ export class Cat {
   @IsString()
   imgUrl: string;
 
-  readonly readOnlyData: { email: string; name: string };
+  readonly readOnlyData: { id: string; email: string; name: string };
 }
 
 export const CatSchema = SchemaFactory.createForClass(Cat);
 
 CatSchema.virtual('readOnlyData').get(function (this: Cat) {
   return {
+    id: this.id,
     email: this.email,
     name: this.name,
   };
